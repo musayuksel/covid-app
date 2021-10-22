@@ -4,14 +4,15 @@ import { Svg, G } from "react-native-svg";
 import CreateBar from "./CreateBar";
 function App() {
   const [data, setData] = useState([]);
-  const deleteLaterChangeWithData = fetchCovidData();
+  const deleteLaterChangeWithData =
+    fetchCovidData().slice(-100);
   // useEffect(() => {
   //   fetchCovidData().then((data) => setData(data.data));
   // }, []);
 
-  const SVGHeight = 300;
-  const SVGWidth = deleteLaterChangeWithData.length * 5; //data.length*barLength
-  const graphHeight = 300;
+  const SVGHeight = 300; //need initial value
+  const SVGWidth = 1000; //need initial value
+  const graphHeight = 300; //need initial value
 
   return (
     <div className="App">
@@ -31,6 +32,7 @@ function App() {
           <CreateBar
             data={deleteLaterChangeWithData}
             graphHeight={graphHeight}
+            SVGWidth={SVGWidth}
           />
         </G>
       </Svg>
