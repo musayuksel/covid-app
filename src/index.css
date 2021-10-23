@@ -1,3 +1,10 @@
 .scgContainer {
   border: 3px solid aqua;
 }
+.barInfo {
+  position: absolute;
+  background-color: red;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}

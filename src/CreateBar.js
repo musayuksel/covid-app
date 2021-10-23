@@ -1,5 +1,4 @@
-import React from "react";
-import { Svg, G, Rect } from "react-native-svg";
+import React, { useState } from "react";
 export default function CreateBar({
   data,
   graphHeight,
@@ -7,20 +6,36 @@ export default function CreateBar({
 }) {
   const maxCase = Math.max(...data.map((e) => e.newCases));
   const barWith = SVGWidth / data.length;
-  const dataBars = data.map((day, i) => {
-    const barHeight =
-      (day.newCases * graphHeight) / maxCase;
+  function OneBar({ barHeight, i, day }) {
+    const [isHover, setIsHover] = useState(true); //TODO hover effect for every bar
 
     return (
-      <Rect
+      <rect
+        onMouseEnter={() => console.log("CLICKED", day)}
         x={i * barWith}
-        y={-barHeight}
+        y={300 - barHeight}
         width={barWith}
         height={barHeight}
         stroke="black"
         strokeWidth="0"
       />
     );
-  });
-  return <>{dataBars}</>;
+  }
+
+  return (
+    <>
+      {data.map((day, i) => {
+        const barHeight =
+          (day.newCases * graphHeight) / maxCase;
+        return (
+          <OneBar
+            key={i}
+            day={day.date}
+            barHeight={barHeight}
+            i={i}
+          />
+        );
+      })}
+    </>
+  );
 }
