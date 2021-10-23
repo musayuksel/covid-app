@@ -5,20 +5,34 @@ export default function CreateBar({
   SVGWidth,
 }) {
   const maxCase = Math.max(...data.map((e) => e.newCases));
-  const barWith = SVGWidth / data.length;
-  function OneBar({ barHeight, i, day }) {
-    const [isHover, setIsHover] = useState(true); //TODO hover effect for every bar
+  const barWith = SVGWidth / data.length; // if there is more data, barwith will be small
 
+  function OneBar({ barHeight, i, day }) {
+    const [showTooltip, setShowTooltip] = useState("none"); //TODO hover effect for every bar
     return (
-      <rect
-        onMouseEnter={() => console.log("CLICKED", day)}
-        x={i * barWith}
-        y={300 - barHeight}
-        width={barWith}
-        height={barHeight}
-        stroke="black"
-        strokeWidth="0"
-      />
+      <>
+        <text
+          style={{
+            font: "italic 15px ",
+            display: `${showTooltip}`,
+          }}
+          x={i * barWith}
+          y={250 - barHeight}
+          stroke="none"
+        >
+          {day.date} New Cases {day.newCases}
+        </text>
+        <rect
+          onMouseEnter={() => setShowTooltip("block")}
+          onMouseLeave={() => setShowTooltip("none")}
+          x={i * barWith}
+          y={300 - barHeight}
+          width={barWith}
+          height={barHeight}
+          stroke="black"
+          strokeWidth="0"
+        />
+      </>
     );
   }
 
@@ -26,11 +40,11 @@ export default function CreateBar({
     <>
       {data.map((day, i) => {
         const barHeight =
-          (day.newCases * graphHeight) / maxCase;
+          (day.newCases * graphHeight) / maxCase; //barHeight will be relative to the data. the highest "newCase" value will be table hight
         return (
           <OneBar
             key={i}
-            day={day.date}
+            day={day}
             barHeight={barHeight}
             i={i}
           />
