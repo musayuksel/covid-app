@@ -40,12 +40,13 @@ function App() {
           strokeWidth="4"
           className="container"
         >
-          {console.log(covidData)}
-          <CreateBar
-            data={covidData.data}
-            graphHeight={graphHeight}
-            SVGWidth={SVGWidth}
-          />
+          {covidData && (
+            <CreateBar
+              data={covidData.data}
+              graphHeight={graphHeight}
+              SVGWidth={SVGWidth}
+            />
+          )}
         </g>
       </svg>
     </div>
