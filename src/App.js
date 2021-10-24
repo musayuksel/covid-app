@@ -1,6 +1,8 @@
 import fetchCovidData from "./utils/fetch-covid-data";
 import { useEffect, useState } from "react";
 import CreateBar from "./CreateBar";
+import DataFilter from "./DataFilter";
+// import ResponsiveSVG from "./ResponsiveSVG";
 function App() {
   // Check if covidData key exists in local storage and that is has a value, returns null if key is not found
   const covidDataLocalStorage = JSON.parse(
@@ -28,6 +30,11 @@ function App() {
 
   return (
     <div className="App">
+      <DataFilter
+        covidData={covidData}
+        setCovidData={setCovidData}
+        covidDataLocalStorage={covidDataLocalStorage} //TODO, update !!!!
+      />
       <svg
         width={SVGWidth}
         height={SVGHeight}

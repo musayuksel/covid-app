@@ -40,7 +40,7 @@ export default function CreateBar({
     <>
       {data.map((day, i) => {
         const barHeight =
-          (day.newCases * graphHeight) / maxCase; //barHeight will be relative to the data. the highest "newCase" value will be table hight
+          (day.newCases * graphHeight * 0.8) / maxCase; //barHeight will be relative to the data. the highest "newCase" value will be 80% of table hight
         return (
           <OneBar
             key={i}
