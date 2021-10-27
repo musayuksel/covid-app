@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import OneBar from "./OneBar";
+
 export default function CreateBar({
   data,
   graphHeight,
@@ -6,35 +8,6 @@ export default function CreateBar({
 }) {
   const maxCase = Math.max(...data.map((e) => e.newCases));
   const barWith = SVGWidth / data.length; // if there is more data, barwith will be small
-
-  function OneBar({ barHeight, i, day }) {
-    const [showTooltip, setShowTooltip] = useState("none"); //TODO hover effect for every bar
-    return (
-      <>
-        <text
-          style={{
-            font: "italic 15px ",
-            display: `${showTooltip}`,
-          }}
-          x={i * barWith}
-          y={250 - barHeight}
-          stroke="none"
-        >
-          {day.date} New Cases {day.newCases}
-        </text>
-        <rect
-          onMouseEnter={() => setShowTooltip("block")}
-          onMouseLeave={() => setShowTooltip("none")}
-          x={i * barWith}
-          y={300 - barHeight}
-          width={barWith}
-          height={barHeight}
-          stroke="black"
-          strokeWidth="0"
-        />
-      </>
-    );
-  }
 
   return (
     <>
@@ -47,6 +20,7 @@ export default function CreateBar({
             day={day}
             barHeight={barHeight}
             i={i}
+            barWith={barWith}
           />
         );
       })}
