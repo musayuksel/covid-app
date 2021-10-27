@@ -7,7 +7,5 @@ export default async function fetchCovidData() {
 
   const response = await fetch(endpoint);
   const data = await response.json();
-  console.log(data, ">>>>DATA FETCHED");
-  return data;
   return data;
 }
