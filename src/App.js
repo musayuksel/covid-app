@@ -44,15 +44,17 @@ function App() {
   const SVGHeight = 300; //need initial value
   const SVGWidth = 700; //need initial value
   const graphHeight = 300; //need initial value
-
+  if (!covidData) {
+    return null;
+  }
   return (
     <div className="App">
       {/*  */}
-      <DataFilter
-        covidData={covidData}
+      {/* <DataFilter
+        covidData={covidData.data.reverse()}
         setCovidData={setCovidData}
         covidDataLocalStorage={covidDataLocalStorage} //TODO, update !!!!
-      />
+      /> */}
       {/* <svg
         width={SVGWidth}
         height={SVGHeight}
@@ -62,7 +64,7 @@ function App() {
  
       </svg> */}
       <ResponsiveSVG
-        data={covidData.data}
+        data={covidData.data.reverse()}
         graphHeight={graphHeight}
         SVGWidth={SVGWidth}
       />

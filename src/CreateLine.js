@@ -14,7 +14,7 @@ export default function CreateLine({
       }`
   );
 
-  console.table(points);
+  // console.table(points);
   return (
     <>
       <polyline
