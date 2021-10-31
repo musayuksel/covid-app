@@ -1,5 +1,8 @@
-[#Component Tree](https://www.figma.com/file/LUYM72VT3jmPqMBHCvVx4F/Component-Tree?node-id=0%3A1)
+The purpose of this App is to practice using React and data visualisation using SVG.  
+The App sources data from the following API [coronavirus.data.gov.uk](https://api.coronavirus.data.gov.uk)
 
+[#Component Tree](https://www.figma.com/file/LUYM72VT3jmPqMBHCvVx4F/Component-Tree?node-id=0%3A1)\
+[#Graph SVG Diagram](https://www.figma.com/file/sbO7rvEFCEDvQ9vADGFpPw/Untitled)
 
 
 
