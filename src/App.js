@@ -25,22 +25,6 @@ function App() {
       });
   }, [covidData]);
 
-  // useEffect(() => {
-  //   function logCoords(event) {
-  //     console.log(
-  //       "xPos",
-  //       event.clientX,
-  //       "\n",
-  //       "yPos",
-  //       event.clientY
-  //     );
-  //   }
-  //   document.addEventListener("mousemove", logCoords);
-
-  //   return () =>
-  //     document.removeEventListener("mousemove", logCoords);
-  // });
-
   const SVGHeight = 300; //need initial value
   const SVGWidth = 700; //need initial value
   const graphHeight = 300; //need initial value
