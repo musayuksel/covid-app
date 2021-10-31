@@ -53,7 +53,7 @@ function App() {
   return (
     <div className="App">
       {covidData && 
-        <Graph covidData={covidData.data}/>
+        <Graph covidData = { covidData.data } />
       }
     </div>
   );

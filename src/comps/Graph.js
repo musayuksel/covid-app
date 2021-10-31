@@ -1,9 +1,10 @@
+import React ,{ useState } from 'react'
 import XAxis from './XAxis'
 import YAxis from './YAxis'
 import PlotArea from './PlotArea'
 import GraphUI from './GraphUI'
 
-function Graph() {
+function Graph({ covidData, setCovidData }) {
     const styles = {
         border: "1px solid #000",
         display: 'grid',
@@ -17,6 +18,19 @@ function Graph() {
             '...... x-axis  ' 
         `,
     }
+    const [filteredCovidData, setFilteredCovidData] = useState(covidData);
+
+    function updateFilteredCovidData(startDate, endDate) {
+      const filteredDates = covidData.filter((day) => {
+          const formatedCurrentDate = new Date(day.date);
+          return (
+            formatedCurrentDate >= startDate && formatedCurrentDate <= endDate
+          );
+        }
+      );
+      setFilteredCovidData(filteredDates)
+    }
+    console.log(filteredCovidData, ">>>>filteredCovidData will go to the graph>");
     return (
         <div
             width="900" height="600"
@@ -25,7 +39,11 @@ function Graph() {
             <YAxis    gridArea="y-axis" />
             <PlotArea gridArea="plot"   />
             <XAxis    gridArea="x-axis" />
-            <GraphUI  gridArea="graph-ui" />
+            <GraphUI
+              covidData={covidData}
+              updateFilteredCovidData={updateFilteredCovidData}
+              gridArea="graph-ui"
+            />
         </div>
     )
 }
