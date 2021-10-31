@@ -4,68 +4,82 @@ import CreateBar from "./CreateBar";
 import DataFilter from "./DataFilter";
 
 import ResponsiveSVG from "./ResponsiveSVG";
+
 function App() {
-  // Check if covidData key exists in local storage and that is has a value, returns null if key is not found
   const covidDataLocalStorage = JSON.parse(
     window.localStorage.getItem("covidData")
-  );
-  // Set state to the const above
+  )
+
+  const mostRecentDateLocalStorage = window.localStorage.getItem("mostRecentDate")
+
+
   const [covidData, setCovidData] = useState(
     covidDataLocalStorage
-  );
+  )
+
+  const [mostRecentDate, setMostRecentDate] = 
+  useState(
+    mostRecentDateLocalStorage || 
+    new Date().toISOString().split("T")[0]
+  )
 
   useEffect(() => {
-    !covidData &&
-      fetchCovidData().then((fetchedCovidData) => {
-        localStorage.setItem(
-          "covidData",
-          JSON.stringify(fetchedCovidData)
-        );
-        setCovidData(fetchedCovidData);
-      });
-  }, [covidData]);
 
-  const SVGHeight = 300; //need initial value
+    const isMostRecentDateInCovidData = 
+      covidData && covidData.data
+        .some(entry => entry.date === mostRecentDate)
+
+    if( 
+      !covidData || 
+      (covidData && !isMostRecentDateInCovidData)
+    ) {
+      fetchCovidData()
+        .then(fetchedCovidData => {
+          
+          localStorage.setItem(
+            "covidData", 
+            JSON.stringify(fetchedCovidData)
+          )
+          setCovidData(fetchedCovidData)
+          
+          const mostRecentDate = fetchedCovidData.data.at(-1).date
+          
+          localStorage.setItem(
+            "mostRecentDate", 
+            mostRecentDate
+          )
+          setMostRecentDate(mostRecentDate)
+      })
+      .catch(err => console.error(err))
+    } 
+  }, [ covidData, mostRecentDate ]);
+
   const SVGWidth = 700; //need initial value
   const graphHeight = 300; //need initial value
-  if (!covidData) {
-    return null;
-  }
+
   return (
     <div className="App">
-      {/*  */}
-      {/* <DataFilter
-        covidData={covidData.data.reverse()}
-        setCovidData={setCovidData}
-        covidDataLocalStorage={covidDataLocalStorage} //TODO, update !!!!
-      /> */}
-      {/* <svg
-        width={SVGWidth}
-        height={SVGHeight}
-        strokeWidth="1"
-        className="scgContainer"
-      >
- 
-      </svg> */}
-      <ResponsiveSVG
-        data={covidData.data.reverse()}
-        graphHeight={graphHeight}
-        SVGWidth={SVGWidth}
-      />
-      {/* <g
-        y={graphHeight}
-        stroke="black"
-        strokeWidth="4"
-        className="container"
-      >
-        {covidData && (
-          <CreateBar
-            data={covidData.data}
+      {covidData && 
+        <>
+          <DataFilter
+            covidData={covidData?.data}
+            setCovidData={setCovidData}
+            covidDataLocalStorage={covidDataLocalStorage} //TODO, update !!!!
+          />
+
+          <ResponsiveSVG
+            data={covidData?.data}
             graphHeight={graphHeight}
             SVGWidth={SVGWidth}
           />
-        )}
-      </g> */}
+
+          <CreateBar
+              data={covidData.data}
+              graphHeight={graphHeight}
+              SVGWidth={SVGWidth}
+          />
+        </>
+      }
     </div>
   );
 }
