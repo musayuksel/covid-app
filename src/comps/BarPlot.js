@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import OneBar from "./OneBar";
+import Bar from "./Bar";
 
-export default function CreateBar({
+export default function BarPlot({
   data,
   graphHeight,
   SVGWidth,
@@ -15,7 +15,7 @@ export default function CreateBar({
         const barHeight =
           (day.newCases * graphHeight * 0.8) / maxCase; //barHeight will be relative to the data. the highest "newCase" value will be 80% of table hight
         return (
-          <OneBar
+          <Bar
             key={i}
             day={day}
             barHeight={barHeight}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function OneBar({
+export default function Bar({
   barHeight,
   i,
   day,
@@ -23,7 +23,6 @@ export default function OneBar({
         onMouseEnter={() => setShowTooltip("block")}
         onMouseLeave={() => setShowTooltip("none")}
         x={i * barWith}
-        y={0}
         width={barWith}
         height={barHeight}
         y={-barHeight}

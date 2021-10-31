@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-
-export default function CreateLine({
+export default function LinePlot({
   data,
   graphHeight,
   SVGWidth,
@@ -14,7 +12,6 @@ export default function CreateLine({
       }`
   );
 
-  // console.table(points);
   return (
     <>
       <polyline

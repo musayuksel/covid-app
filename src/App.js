@@ -1,17 +1,13 @@
 import fetchCovidData from "./utils/fetch-covid-data";
 import { useEffect, useState } from "react";
-import CreateBar from "./CreateBar";
-import DataFilter from "./DataFilter";
-
-import ResponsiveSVG from "./ResponsiveSVG";
+import Graph from "./comps/Graph";
 
 function App() {
   const covidDataLocalStorage = JSON.parse(
-    window.localStorage.getItem("covidData")
-  )
+    window.localStorage.getItem("covidData"))
 
-  const mostRecentDateLocalStorage = window.localStorage.getItem("mostRecentDate")
-
+  const mostRecentDateLocalStorage = 
+    window.localStorage.getItem("mostRecentDate")
 
   const [covidData, setCovidData] = useState(
     covidDataLocalStorage
@@ -54,31 +50,10 @@ function App() {
     } 
   }, [ covidData, mostRecentDate ]);
 
-  const SVGWidth = 700; //need initial value
-  const graphHeight = 300; //need initial value
-
   return (
     <div className="App">
       {covidData && 
-        <>
-          <DataFilter
-            covidData={covidData?.data}
-            setCovidData={setCovidData}
-            covidDataLocalStorage={covidDataLocalStorage} //TODO, update !!!!
-          />
-
-          <ResponsiveSVG
-            data={covidData?.data}
-            graphHeight={graphHeight}
-            SVGWidth={SVGWidth}
-          />
-
-          <CreateBar
-              data={covidData.data}
-              graphHeight={graphHeight}
-              SVGWidth={SVGWidth}
-          />
-        </>
+        <Graph covidData={covidData.data}/>
       }
     </div>
   );

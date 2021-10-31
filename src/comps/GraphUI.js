@@ -1,11 +1,19 @@
 import React from "react";
 
-export default function DataFilter({
+export default function GraphUI({
+  gridArea,
   covidData,
   setCovidData,
   covidDataLocalStorage,
 }) {
+
+  const styles = {
+    gridArea: gridArea,
+    background: "cyan",
+  }
+  
   function findLastXDay(lastXDay) {
+
     //it will be dynamic 1 week=7, 1 month=30 etc.
     const today = new Date();
     let startDate = new Date();
@@ -20,7 +28,7 @@ export default function DataFilter({
     setCovidData(copy);
   }
   return (
-    <>
+    <div style={styles}>
       <button onClick={() => findLastXDay(30)}>
         LAST 30 DAYS
       </button>
@@ -32,6 +40,6 @@ export default function DataFilter({
       >
         ALL
       </button>
-    </>
+    </div>
   );
 }
