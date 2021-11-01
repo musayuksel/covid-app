@@ -4,7 +4,7 @@ import YAxis from './YAxis'
 import PlotArea from './PlotArea'
 import GraphUI from './GraphUI'
 
-function Graph({ covidData, setCovidData }) {
+function Graph({ covidData }) {
     const styles = {
         border: "1px solid #000",
         display: 'grid',
@@ -22,9 +22,9 @@ function Graph({ covidData, setCovidData }) {
 
     function updateFilteredCovidData(startDate, endDate) {
       const filteredDates = covidData.filter((day) => {
-          const formatedCurrentDate = new Date(day.date);
+          const formattedCurrentDate = new Date(day.date);
           return (
-            formatedCurrentDate >= startDate && formatedCurrentDate <= endDate
+            formattedCurrentDate >= startDate && formattedCurrentDate <= endDate
           );
         }
       );
