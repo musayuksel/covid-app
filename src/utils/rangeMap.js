@@ -1,6 +1,11 @@
-function rangeMap(value, inMin, inMax, outMin, outMax){
+// Converts a numeric value that is within the bounds of inMin & inMax,
+// to a proportionate numeric value that is within the bounds of outMin & outMax. 
+// Examples: 
+//    rangeMap(50, 0, 100, -10, -30) returns -20
+
+function rangeMap(inValue, inMin, inMax, outMin, outMax){
   return (
-    (value - inMin) * 
+    (inValue - inMin) * 
     (outMax - outMin) / 
     (inMax - inMin) + outMin
   )
