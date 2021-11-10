@@ -1,3 +1,6 @@
+// Returns a rounded up numeric value  
+// taking into consideration it's magnitude
+
 function roundUp(number) {  
   const baseLog10 = 
     Math.ceil(
@@ -7,7 +10,9 @@ function roundUp(number) {
   const divisor = 10 ** (baseLog10 - 1) 
 
   return (
-    Math.ceil(number * 2 / divisor) / 2
+    Math.ceil(
+      number * 2 / divisor
+    ) / 2
   ) * divisor 
 }
 
