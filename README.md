@@ -4,20 +4,7 @@ The App sources data from the following API [coronavirus.data.gov.uk](https://ap
 [#Component Tree](https://www.figma.com/file/LUYM72VT3jmPqMBHCvVx4F/Component-Tree?node-id=0%3A1)\
 [#Graph SVG Diagram](https://www.figma.com/file/sbO7rvEFCEDvQ9vADGFpPw/Untitled)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The app was initially started as a side project for a small group from the [CodeYourFuture](https://codeyourfuture.io/) community to practice their skills. 
 
 
 # Getting Started with Create React App
