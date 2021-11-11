@@ -1,41 +1,31 @@
 import fetchCovidData from "./utils/fetch-covid-data";
 import { useEffect, useState } from "react";
 import Graph from "./comps/Graph";
-// import LinePlot from "./comps/LinePlot";
 
 function App() {
-  const covidDataLocalStorage = JSON.parse(
-    window.localStorage.getItem("covidData")
-  );
-
-  const mostRecentDateLocalStorage =
-    window.localStorage.getItem("mostRecentDate");
-
-  const [covidData, setCovidData] = useState(covidDataLocalStorage);
-
-  const [mostRecentDate, setMostRecentDate] = useState(
-    mostRecentDateLocalStorage || new Date().toISOString().split("T")[0]
-  );
-
+  const $ = window.localStorage;
+  const storedCovidData = JSON.parse($.getItem("storedCovidData"));
+  const timeStamp = $.getItem("timeStamp");
+  const [covidData, setCovidData] = useState(storedCovidData);
+  
   useEffect(() => {
-    const isMostRecentDateInCovidData =
-      covidData &&
-      covidData.data.some((entry) => entry.date === mostRecentDate);
+    const timeStampObj = new Date(timeStamp);
+    const dateTodayObj = new Date();
+    const dateTodayStr = dateTodayObj.toISOString().split("T")[0]
+    console.log(dateTodayObj);
+    const isDataStale = timeStampObj < dateTodayObj;
 
-    if (!covidData || (covidData && !isMostRecentDateInCovidData)) {
+    if (isDataStale) {
       fetchCovidData()
-        .then((fetchedCovidData) => {
-          localStorage.setItem("covidData", JSON.stringify(fetchedCovidData));
-          setCovidData(fetchedCovidData);
+        .then((newCovidData) => {
+          $.setItem("storedCovidData", JSON.stringify(newCovidData));
+          setCovidData(newCovidData);
 
-          const mostRecentDate = fetchedCovidData.data.at(-1).date;
-
-          localStorage.setItem("mostRecentDate", mostRecentDate);
-          setMostRecentDate(mostRecentDate);
+          $.setItem("timeStamp", dateTodayStr);
         })
         .catch((err) => console.error(err));
     }
-  }, [covidData, mostRecentDate]);
+  },[timeStamp, $]);
 
   return (
     <div className="App">
