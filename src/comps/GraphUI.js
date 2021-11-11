@@ -45,11 +45,10 @@ export default function GraphUI({
         ref.current.classList.remove("active");
       }
     })
-
   }
 
-  const [startDate, setStartDate] = useState(covidData[0].date)
-  const [endDate, setEndDate] = useState(today.toLocaleDateString('en-ca'))
+  const [startDate, setStartDate] = useState(covidData[0].date);
+  const [endDate, setEndDate] = useState(today.toLocaleDateString("en-GB"));
 
   const [startInput, endInput] = [useRef(null), useRef(null)];
 
@@ -83,7 +82,7 @@ export default function GraphUI({
     submitEvent.preventDefault();
     updateFilteredCovidData(new Date(startDate), new Date(endDate));
   }
-  
+
   return (
     <div style={styles.main}>
       <div style={styles.buttonDiv}>
