@@ -34,10 +34,11 @@ function YAxis({ gridArea, filteredCovidData }) {
   console.log(incrementDistance);
   return (
     <svg style={styles}>
-      {markings.map((marking) => {
+      {markings.map((marking, i) => {
         const mappedMarking = rangeMap(marking, 0, scaleMax, 100, 0);
         return (
           <line
+            key={i}
             x1="50%"
             x2="100%"
             y1={`${mappedMarking}%`}
