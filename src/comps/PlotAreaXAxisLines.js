@@ -1,25 +1,26 @@
 import rangeMap from "../utils/rangeMap";
 import roundUp from "../utils/roundUp";
 
-function YAxis({ gridArea, filteredCovidData }) {
+function PlotAreaXAxisLines({
+  gridArea,
+  filteredCovidData,
+}) {
   const styles = {
     gridArea: gridArea,
     width: "100%",
     height: "100%",
-    background: "red",
+    background: "none",
     overFlow: "visible",
+    gridColumn: "2 / 3",
+    gridRow: "2 / 3",
   };
+
   const maxCase = Math.max(
     ...filteredCovidData.map((day) => day.newCases)
   );
-  // const maxCase = 112;
+  // const maxCase = 99;
 
   const scaleMax = roundUp(maxCase); // top of y scale
-  console.log(
-    scaleMax,
-    "<<scaleMax Y, max CaseNum >",
-    maxCase
-  );
   const mappedMaxCase = rangeMap(
     maxCase,
     0,
@@ -27,7 +28,7 @@ function YAxis({ gridArea, filteredCovidData }) {
     100,
     0
   ); // data point on y scale
-  // console.log(`mappedMaxCase`, mappedMaxCase);
+
   const markings = [];
   const markingsCount = 5;
   const incrementDistance = scaleMax / markingsCount;
@@ -36,9 +37,6 @@ function YAxis({ gridArea, filteredCovidData }) {
     markings.push(i);
   }
 
-  console.log(markings);
-
-  console.log(incrementDistance);
   return (
     <svg style={styles}>
       {markings.map((marking, i) => {
@@ -50,30 +48,28 @@ function YAxis({ gridArea, filteredCovidData }) {
           0
         );
         return (
-          <foreignObject
-            x={`${40}%`}
-            y={`${mappedMarking + 2}%`}
-            width="60%"
-            height="100%"
-          >
-            <p style={{ border: "1px solid white" }}></p>
-            <p style={{ border: "1px solid white" }}>
-              {marking}
-            </p>
-          </foreignObject>
+          <line
+            key={i}
+            x1="0%"
+            x2="100%"
+            y1={`${mappedMarking}%`}
+            y2={`${mappedMarking}%`}
+            stroke="#00f"
+            strokeWidth="4"
+          />
         );
       })}
+
+      <line
+        x1="0%"
+        x2="100%"
+        y1={`${mappedMaxCase}%`}
+        y2={`${mappedMaxCase}%`}
+        stroke="#0f0"
+        strokeWidth="4"
+      />
     </svg>
   );
-  //   return (
-  //     <text
-  //       x={x}
-  //       y={yCoordinate}
-  //       style={{ fill: "#ccc", fontSize: "16", fontFamily: "Helvetica" }}
-  //     >
-  //       {parseFloat(maxCase / 1000).toFixed(2)}
-  //     </text>
-  //   );
 }
 
-export default YAxis;
+export default PlotAreaXAxisLines;

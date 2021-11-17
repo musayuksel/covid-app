@@ -3,6 +3,7 @@ import XAxis from "./XAxis";
 import YAxis from "./YAxis";
 import PlotArea from "./PlotArea";
 import GraphUI from "./GraphUI";
+import PlotAreaXAxisLines from "./PlotAreaXAxisLines";
 
 function Graph({ covidData }) {
   const styles = {
@@ -16,29 +17,45 @@ function Graph({ covidData }) {
             '...... graph-ui'
             'y-axis plot    '
             '...... x-axis  ' 
+            'PlotAreaXAxisLines PlotAreaXAxisLines'
         `,
   };
-  const [filteredCovidData, setFilteredCovidData] = useState(covidData);
+  const [filteredCovidData, setFilteredCovidData] =
+    useState(covidData);
 
   function updateFilteredCovidData(startDate, endDate) {
     const filteredDates = covidData.filter((day) => {
       const formattedCurrentDate = new Date(day.date);
       return (
-        formattedCurrentDate >= startDate && formattedCurrentDate <= endDate
+        formattedCurrentDate >= startDate &&
+        formattedCurrentDate <= endDate
       );
     });
     setFilteredCovidData(filteredDates);
   }
-  console.log(filteredCovidData, ">>>>filteredCovidData will go to the graph>");
+  console.log(
+    filteredCovidData,
+    ">>>>filteredCovidData will go to the graph>"
+  );
   return (
     <div width="900" height="600" style={styles}>
-      <YAxis gridArea="y-axis" filteredCovidData={filteredCovidData} />
-      <PlotArea gridArea="plot" />
+      <YAxis
+        gridArea="y-axis"
+        filteredCovidData={filteredCovidData}
+      />
+      <PlotArea
+        gridArea="plot"
+        filteredCovidData={filteredCovidData}
+      />
       <XAxis gridArea="x-axis" />
       <GraphUI
         covidData={covidData}
         updateFilteredCovidData={updateFilteredCovidData}
         gridArea="graph-ui"
+      />
+      <PlotAreaXAxisLines
+        gridArea="PlotAreaXAxisLines"
+        filteredCovidData={filteredCovidData}
       />
     </div>
   );
